@@ -18,6 +18,9 @@ namespace Estudiantes2
             InitializeComponent();
         }
 
+        /*Abre la conexión al abrir el formulario.
+          Muestra mensaje de conexión.
+          Llena la tabla con los registros existentes.*/
         private void Form1_Load(object sender, EventArgs e)
         {
             Conexion.Conectar();
@@ -25,6 +28,11 @@ namespace Estudiantes2
             dataGridView1.DataSource = llenar_grid();
         }
 
+        /*llenar grid
+          Ejecuta un SELECT para traer todos los estudiantes.
+          Llena un DataTable con los resultados.
+          El DataGridView del formulario se alimenta con este DataTable.
+          Clave: Este método muestra siempre la tabla actualizada.*/
         public DataTable llenar_grid()
         {
             Conexion.Conectar();
@@ -39,7 +47,7 @@ namespace Estudiantes2
             return dt;
 
         }
-
+        /*Función buscar alumno*/
         private void BuscarAlumno()
         {
             Conexion.Conectar();
@@ -66,6 +74,12 @@ namespace Estudiantes2
             reader.Close();
         }
 
+        /*Boton Agregar
+          Toma los valores de los TextBox (txtcodigo, txtnombres...).
+          Crea un INSERT con parámetros para guardarlos en la tabla.
+          Ejecuta el comando en la BD (ExecuteNonQuery).
+          Muestra mensaje de éxito.
+          Vuelve a cargar el DataGridView para mostrar el nuevo registro.*/
         private void button1_Click(object sender, EventArgs e)
         {
             Conexion.Conectar();
@@ -97,6 +111,10 @@ namespace Estudiantes2
             catch { }
         }
 
+        /*Boton Modificar
+          Toma los datos de los TextBox.
+          Ejecuta un UPDATE solo para el código indicado.
+          Muestra mensaje y recarga la grilla.*/
         private void button2_Click(object sender, EventArgs e)
         {
             Conexion.Conectar();
@@ -116,6 +134,9 @@ namespace Estudiantes2
 
         }
 
+        /*Boton Eliminar
+          Elimina un estudiante por su Codigo.
+          Muestra mensaje y actualiza la grilla.*/
         private void button3_Click(object sender, EventArgs e)
         {
             Conexion.Conectar();
@@ -135,13 +156,16 @@ namespace Estudiantes2
             txtdireccion.Clear();
             txtcodigo.Focus();
         }
-
+        /*Invoco la funcion buscar desde el boton buscar*/
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             BuscarAlumno();
         }
 
-       private void txtcodigo_KeyPress(object sender, KeyPressEventArgs e)
+        /*txtcodigo
+          Cuando escribes un código, busca ese estudiante.
+          Si lo encuentra, rellena automáticamente los TextBox.*/
+        private void txtcodigo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
